@@ -30,10 +30,10 @@ module.exports = {
     ]
   },
   devServer: {
-    port: 4125,
+    port: 3001,
     open: true,
     proxy: {
-      '/api': 'http://localhost:8080'
+      '/api': 'http://localhost:4125'
     }
   },
   plugins: [
