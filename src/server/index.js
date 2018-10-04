@@ -71,8 +71,12 @@ router.route('/movies').post(function (req, res) {
 //GET BY ID
 router.route('/movies/:movieId')
   .get(function (req, res) {
-    res.json({message: `${req.params.movieId} get this movie`});
+    database.ref().once('value').then(function (snapshot) {
+      res.json(snapshot.val().movie[req.params.movieId])
   })
+  .catch(); 
+  })
+
   //UPDATE
   .put(function (req, res) {
     firebase.database().ref('movie/' + req.params.movieId).update(req.body.movie).then(i =>
