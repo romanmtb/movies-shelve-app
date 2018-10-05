@@ -10,6 +10,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const router = express.Router();
+const cors = require('cors');
 const admin = require('firebase-admin');
 const firebase = require("firebase");
 const PORT = 4125
@@ -34,6 +35,7 @@ database.ref().once('value').then(function (snapshot) {
 });
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // middleware to use for all requests

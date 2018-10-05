@@ -5,16 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store'
-
-console.log('hello', '---');
-
-const getAll = () => 
-    fetch(
-		`http://localhost:4125/api/movies`
-    ).then(res => res.json())
-    .then(data => console.log( data ))
-
-    getAll()
+import axios from 'axios'
 
 render(
   <Provider store={store}>
