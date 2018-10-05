@@ -3,7 +3,7 @@ import * as actions from "../actions";
 import './../App.css';
 import {connect} from "react-redux";
 import MovieDashboardComponent from './MovieDashboardComponent'
-
+import 'bootstrap/dist/css/bootstrap.css'
 
 class App extends Component {
 

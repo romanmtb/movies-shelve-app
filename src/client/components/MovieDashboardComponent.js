@@ -9,11 +9,24 @@ class MovieDashboardComponent extends Component {
     
 
     render() {
+        const data = this.props.movieData
+        console.log(data);
         return (
             <div className="movie-dashboard">
-                <MovieCardComponent
-                    movieData={this.props.movieData}
-                />
+                {data.length >= 1 &&
+                    data.map((item, idx) => {
+                            return (
+                                <MovieCardComponent
+                                    key={idx}
+                                    idx={idx}
+                                    format={item.format}
+                                    release={item.release}
+                                    stars={item.stars}
+                                    title={item.title}
+                                />
+                            )
+                        })
+                    }
             </div>
         );
     }

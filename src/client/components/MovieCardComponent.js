@@ -8,11 +8,15 @@ class MovieCardComponent extends Component {
     
 
     render() {
-        const films = this.props.movieData
-            console.log(films)
+
         return (
             <div className="movie-dashboard__card">
-                {films[0].title}
+                <ul>
+                    <li>{this.props.title}</li>
+                    <li>{this.props.format}</li>
+                    <li>{this.props.release}</li>
+                    <li>{this.props.stars}</li>
+                </ul>
             </div>
         );
     }
