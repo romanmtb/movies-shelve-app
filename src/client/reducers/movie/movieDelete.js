@@ -1,27 +1,26 @@
-import { MOVIE_DELETE} from "../../constants";
+import { MOVIE_DELETE } from '../../constants';
 
-const initialState = {movies: []}
+const initialState = { movies: [] };
 
 let movies = (state = initialState, action) => {
-  let {type, payload} = action
+  let { type, payload } = action;
+
   if (type === MOVIE_DELETE) {
-    console.log('reducer MOVIE_DELETE:', action)
+    console.log('reducer MOVIE_DELETE:', action);
     const movie = {
       id: 17,
       isComplete: false,
       name: payload,
-    }
+    };
     return {
-      movies: [
-        movie
-      ]
+      movies: [movie],
     };
   }
 
   return {
     ...state,
-    movies
+    movies,
   };
-}
+};
 
-export default movies
+export default movies;

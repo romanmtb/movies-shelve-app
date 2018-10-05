@@ -1,12 +1,11 @@
-import {combineReducers} from "redux";
-import addTodo from "./addTodo";
-import appInitReducer from "./initReducer";
-import updateExisting from "./movie/updateExisting";
-import getById from "./movie/getById";
-import addNew from "./movie/addNew";
-import getAll from "./movie/getAll";
-import movieDelete from './movie/movieDelete'
-
+import { combineReducers } from 'redux';
+import addTodo from './addTodo';
+import appInitReducer from './initReducer';
+import updateExisting from './movie/updateExisting';
+import getById from './movie/getById';
+import addNew from './movie/addNew';
+import getAll from './movie/getAll';
+import movieDelete from './movie/movieDelete';
 
 const reducers = combineReducers({
   addTodo,
@@ -16,6 +15,6 @@ const reducers = combineReducers({
   movieDelete,
   getById,
   getAll,
-  addNew
+  addNew,
 });
 export default reducers;

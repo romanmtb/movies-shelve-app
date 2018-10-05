@@ -1,27 +1,24 @@
-import { AddTodo } from "../constants";
+import { AddTodo } from '../constants';
 
-const todos = (state = {todos: []}, action) => {
-  let {type, payload} = action
+const todos = (state = { todos: [] }, action) => {
+  let { type, payload } = action;
   if (type === AddTodo) {
-    console.log('reducer AddTodo:', action)
+    console.log('reducer AddTodo:', action);
     const todo = {
       id: 17,
       isComplete: false,
       name: payload,
-    }
+    };
     return {
       ...state,
-      todos: [
-        ...state.todos,
-        todo
-      ]
+      todos: [...state.todos, todo],
     };
   }
 
   return {
     ...state,
-    todos
+    todos,
   };
-}
+};
 
-export default todos
+export default todos;

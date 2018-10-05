@@ -1,6 +1,6 @@
-export const AddTodo = "ADD_TODO";
-export const RemoveTodo = "REMOVE_TODO";
-export const CompleteTodo = "COMPLETE_TODO";
+export const AddTodo = 'ADD_TODO';
+export const RemoveTodo = 'REMOVE_TODO';
+export const CompleteTodo = 'COMPLETE_TODO';
 
 export const APP_INIT = 'APP_INIT';
 

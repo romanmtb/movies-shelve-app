@@ -1,26 +1,24 @@
-import { APP_INIT } from "../constants";
+import { APP_INIT } from '../constants';
 
-const initialState = {movies: []}
+const initialState = { movies: [] };
 
 let movies = (state = initialState, action) => {
-  let {type, payload} = action
+  let { type, payload } = action;
   if (type === APP_INIT) {
-    console.log('reducer APP_INIT:', action)
+    console.log('reducer APP_INIT:', action);
     const movie = {
       id: 17,
       isComplete: false,
       name: payload,
-    }
+    };
     return {
-      movies: [
-        movie
-      ]
+      movies: [movie],
     };
   }
 
   return {
-    movies
+    movies,
   };
-}
+};
 
-export default movies
+export default movies;

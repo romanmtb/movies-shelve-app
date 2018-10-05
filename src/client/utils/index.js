@@ -1,12 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
+import PATH from '../constants/path';
 
-
-export const getAllRequest = () => axios.get(`/api/movies/`)
-
-export const getByIdRequest = id => axios.get(`/api/movies/${id}`)
-
-export const addNewRequest = body => axios.post('/api/movies', body = { movie:{foo:'bar'} })
-
-export const movieDeleteRequest = id => axios.delete(`/api/movies/${id}`)
-
-export const updateExistingRequest = (id, body) => axios.put(`/api/movies/${id}`, body = {movie: {hello: 'world'}})
+export const getAllRequest = () => axios.get(PATH);
+export const getByIdRequest = id => axios.get(`${PATH}${id}`);
+export const addNewRequest = (body = { movie: {} }) =>
+  axios.post('/api/movies', { movie: body });
+export const movieDeleteRequest = id => axios.delete(`${PATH}${id}`);
+export const updateExistingRequest = (id, body) =>
+  axios.put(`${PATH}${id}`, { movie: body });

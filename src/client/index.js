@@ -2,10 +2,10 @@ import React from 'react';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import store from './store'
-import axios from 'axios'
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store';
+import axios from 'axios';
 
 render(
   <Provider store={store}>
