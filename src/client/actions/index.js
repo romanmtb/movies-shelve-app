@@ -60,7 +60,7 @@ export const movieUpdateExisting = (id, movie) => dispatch => {
   )
 }
 
-const mockGetAllRequest = { movie:
+export const mockGetAllRequest = { movie:
     [
     {
       "format" : "VHS",

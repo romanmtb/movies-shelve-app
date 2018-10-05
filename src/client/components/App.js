@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import * as actions from "../actions";
 import './../App.css';
 import {connect} from "react-redux";
+import MovieDashboardComponent from './MovieDashboardComponent'
+
 
 class App extends Component {
 
@@ -30,10 +32,10 @@ class App extends Component {
   updateHandler() {this.props.updateExisting(15, {foo:'rab'})}
 
   render() {
+    const movieData = actions.mockGetAllRequest.movie;
+
     return (
       <div className="App">
-       {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>*/}
         <p>
             Edit <code>src/App.js</code> and save to reload.
             8mm📽
@@ -54,15 +56,11 @@ class App extends Component {
         <div>{this.props.movies.length && this.props.movies.map(item =>
           <p key={Math.round(Math.random()*20000)}>{item.title} - {item.release} -  {item.format} - {item.stars}</p>
         )}</div>
-         {/* <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>*/}
+         
+         <MovieDashboardComponent
+            movieData={movieData}
+         />
+
       </div>
     );
   }
