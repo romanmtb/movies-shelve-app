@@ -9,8 +9,11 @@ class SearchActorComponent extends Component {
 
   render() {
     return (
-      <div>
-        <input placeholder="SEARCH BY TITLE" />
+      <div
+        className="input-group input-group-lg col-lg-4"
+        style={{ marginBottom: '30px' }}
+      >
+        <input className="form-control" placeholder="ACTOR..." />
       </div>
     );
   }

@@ -67,7 +67,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="container">
         {/* <p>
           <b>API methods:</b>
 
@@ -93,18 +93,29 @@ class App extends Component {
         </p> */}
 
         {console.log('on render >>>>', this.props.movies)}
-        <HeaderComponent />
-        <SearchActorComponent />
-        <SearchByTitleComponent />
-        <button>SORT A-Z</button>
-        <button>IMPORT</button>
-        <button>ADD NEW</button>
-        {this.props.movies.movie && (
-          <MovieDashboardComponent
-            movieData={this.props.movies.movie}
-            deleteHandler={this.deleteHandler}
-          />
-        )}
+        <div className="row justify-content-center">
+          <HeaderComponent />
+        </div>
+        <div className="row justify-content-center">
+          <SearchActorComponent />
+          <SearchByTitleComponent />
+          <div
+            className="btn-group col-lg-4 justify-content-center"
+            style={{ marginBottom: '30px' }}
+          >
+            <button className="btn btn-dark">SORT A-Z</button>
+            <button className="btn btn-dark">IMPORT TXT</button>
+            <button className="btn btn-dark">ADD FILM</button>
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          {this.props.movies.movie && (
+            <MovieDashboardComponent
+              movieData={this.props.movies.movie}
+              deleteHandler={this.deleteHandler}
+            />
+          )}
+        </div>
       </div>
     );
   }

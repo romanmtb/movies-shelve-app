@@ -11,7 +11,7 @@ class MovieDashboardComponent extends Component {
     const data = this.props.movieData;
     console.log(data);
     return (
-      <div className="movie-dashboard">
+      <div className="movie-dashboard card-deck">
         {data.length >= 1 &&
           data.map(item => {
             return (

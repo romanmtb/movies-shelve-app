@@ -15,28 +15,33 @@ class MovieCardComponent extends Component {
   };
 
   render() {
-    const filmStars = this.state.isOpen && <li>{this.props.stars}</li>;
+    const filmStars = this.state.isOpen && <p>{this.props.stars}</p>;
 
     return (
-      <div className="movie-dashboard__card">
-        <ul>
-          <li>
-            <button onClick={() => this.props.deleteHandler(this.props.id)}>
-              Remove
-            </button>
-          </li>
+      <div className="movie-dashboard__card card" style={{ margin: '10px' }}>
+        <div className="card-body">
+          <button
+            className="btn btn-outline-dark"
+            style={{ margin: '4px' }}
+            onClick={() => this.props.deleteHandler(this.props.id)}
+          >
+            DELETE
+          </button>
 
-          <li>
-            <button onClick={this.handleClick}>
-              {this.state.isOpen ? 'Close' : 'Open'}
-            </button>
-          </li>
-          <li>id {this.props.id}</li>
-          <li>{this.props.title}</li>
-          <li>{this.props.release}</li>
-          <li>{this.props.format}</li>
+          <button
+            className="btn btn-outline-dark"
+            style={{ margin: '4px' }}
+            onClick={this.handleClick}
+          >
+            {this.state.isOpen ? 'CLOSE' : 'OPEN'}
+          </button>
+
+          <h6>ID {this.props.id}</h6>
+          <h5>{this.props.title}</h5>
+          <h6>{this.props.release}</h6>
+          <h6>{this.props.format}</h6>
           {filmStars}
-        </ul>
+        </div>
       </div>
     );
   }

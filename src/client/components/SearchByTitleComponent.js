@@ -2,8 +2,11 @@ import React from 'react';
 
 const SearchByTitleComponent = () => {
   return (
-    <div>
-      <input placeholder="SEARCH FILM BY NAME" />
+    <div
+      className="input-group input-group-lg col-lg-4"
+      style={{ marginBottom: '30px' }}
+    >
+      <input className="form-control" placeholder="TITLE..." />
     </div>
   );
 };
