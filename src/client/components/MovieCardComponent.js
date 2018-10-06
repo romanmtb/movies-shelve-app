@@ -3,17 +3,31 @@ import React, { Component } from 'react';
 class MovieCardComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isOpen: false
+    }
+  }
+
+  handleClick = () => {
+    console.log('click', '---')
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
   }
 
   render() {
+    const filmStars = this.state.isOpen && <li>{this.props.stars}</li>
     return (
       <div className="movie-dashboard__card">
         <ul>
+          <li><button onClick={this.handleClick}>
+            {this.state.isOpen ? 'Close' : 'Open'}
+              </button>
+          </li>
           <li>{this.props.title}</li>
           <li>{this.props.format}</li>
           <li>{this.props.release}</li>
-          <li>{this.props.stars}</li>
+          {filmStars}
         </ul>
       </div>
     );

@@ -16,12 +16,12 @@ const PORT = 4125;
 const MAX_ITEMS = 20;
 
 let config = {
-  apiKey: 'AIzaSyBs17-j5048eEmoPJk7WxX8zx47Io6XMwk',
-  authDomain: 'movie-shelve.firebaseapp.com',
-  databaseURL: 'https://movie-shelve.firebaseio.com',
-  projectId: 'movie-shelve',
-  storageBucket: 'movie-shelve.appspot.com',
-  messagingSenderId: '168547079024',
+  apiKey: "AIzaSyDmNmhYd8smrolZuwd5W1WsQtsJBh3ddfM",
+  authDomain: "react-movies-shelve.firebaseapp.com",
+  databaseURL: "https://react-movies-shelve.firebaseio.com",
+  projectId: "react-movies-shelve",
+  storageBucket: "react-movies-shelve.appspot.com",
+  messagingSenderId: "825999127196"
 };
 
 firebase.initializeApp(config);
