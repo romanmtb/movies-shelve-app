@@ -4,7 +4,10 @@ import './../App.css';
 import { connect } from 'react-redux';
 import DEFAULT_MOVIE from '../constants/defaultMovie';
 import MovieDashboardComponent from './MovieDashboardComponent';
+import HeaderComponent from './HeaderComponent';
 import 'bootstrap/dist/css/bootstrap.css';
+import SearchActorComponent from './SearchActorComponent';
+import SearchByTitleComponent from './SearchByTitleComponent';
 
 class App extends Component {
   constructor(params) {
@@ -65,7 +68,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <p>
+        {/* <p>
           <b>API methods:</b>
 
           <button onClick={this.initHandler}>init</button>
@@ -77,19 +80,25 @@ class App extends Component {
             onChange={this.byIdHandler}
           />
           <button onClick={this.addHandler}>addNew</button>
-          {/*<button onClick={this.deleteHandler}>movieDelete</button>*/}
-          {/*<input type="text" value={this.state.deleteInput} onChange={this.deleteInputHandler} />*/}
+
+          <button onClick={this.deleteHandler}>movieDelete</button>
+          <input type="text" value={this.state.deleteInput} onChange={this.deleteInputHandler} />
+          
           <button onClick={this.updateHandler}>updateExisting</button>
           <input
             type="text"
             value={this.state.updateInput}
             onChange={this.updateInputHandler}
           />
-        </p>
-
-        <span>List:</span>
+        </p> */}
 
         {console.log('on render >>>>', this.props.movies)}
+        <HeaderComponent />
+        <SearchActorComponent />
+        <SearchByTitleComponent />
+        <button>SORT A-Z</button>
+        <button>IMPORT</button>
+        <button>ADD NEW</button>
         {this.props.movies.movie && (
           <MovieDashboardComponent
             movieData={this.props.movies.movie}

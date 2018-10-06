@@ -33,8 +33,8 @@ class MovieCardComponent extends Component {
           </li>
           <li>id {this.props.id}</li>
           <li>{this.props.title}</li>
-          <li>{this.props.format}</li>
           <li>{this.props.release}</li>
+          <li>{this.props.format}</li>
           {filmStars}
         </ul>
       </div>
