@@ -16,12 +16,12 @@ const PORT = 4125;
 const MAX_ITEMS = 20;
 
 let config = {
-  apiKey: "AIzaSyDmNmhYd8smrolZuwd5W1WsQtsJBh3ddfM",
-  authDomain: "react-movies-shelve.firebaseapp.com",
-  databaseURL: "https://react-movies-shelve.firebaseio.com",
-  projectId: "react-movies-shelve",
-  storageBucket: "react-movies-shelve.appspot.com",
-  messagingSenderId: "825999127196"
+  apiKey: 'AIzaSyDmNmhYd8smrolZuwd5W1WsQtsJBh3ddfM',
+  authDomain: 'react-movies-shelve.firebaseapp.com',
+  databaseURL: 'https://react-movies-shelve.firebaseio.com',
+  projectId: 'react-movies-shelve',
+  storageBucket: 'react-movies-shelve.appspot.com',
+  messagingSenderId: '825999127196',
 };
 
 firebase.initializeApp(config);
@@ -31,10 +31,10 @@ let database = firebase.database();
 let LAST_ID = -1;
 
 database
-  .ref()
+  .ref('options')
   .once('value')
   .then(function(snapshot) {
-    LAST_ID = Math.max.apply(null, Object.keys(snapshot.val().movie));
+    LAST_ID = snapshot.val().max_id;
   });
 
 app.use(bodyParser.json());
@@ -57,14 +57,19 @@ router
   .route('/movies')
   .post(function(req, res) {
     LAST_ID++;
+    let movie = { ...req.body.movie, id: LAST_ID };
     firebase
       .database()
       .ref('movie/' + LAST_ID)
-      .set(req.body.movie, function(error) {
+      .set(movie, function(error) {
         if (error) {
           res.json({ message: 'ERROR' });
         } else {
-          res.json({ message: req.body.movie, status: 'ok' });
+          firebase
+            .database()
+            .ref('options')
+            .set({ max_id: LAST_ID });
+          res.json({ message: movie, status: 'ok' });
         }
       });
 
@@ -102,12 +107,23 @@ router
   })
   //DELETE
   .delete(function(req, res) {
-    firebase
-      .database()
-      .ref('movie/' + req.params.movieId)
-      .remove()
-      .then(i => res.json({ message: req.body.movie, status: 'ok' }))
-      .catch(); //FIXME #2 add error handling for requests
+    database
+      .ref()
+      .once('value')
+      .then(function(snapshot) {
+        if (snapshot.val().movie[req.params.movieId] === undefined) {
+          res.status(426).json({ message: 'item not found' });
+        } else {
+          firebase
+            .database()
+            .ref('movie/' + req.params.movieId)
+            .remove()
+            .then(i => {
+              res.json({ message: req.body.movie, status: 'ok' });
+            })
+            .catch(err => res.status(426).json({ message: err }));
+        }
+      });
   });
 
 app.use('/api', router);

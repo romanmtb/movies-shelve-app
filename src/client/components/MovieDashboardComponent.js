@@ -13,15 +13,16 @@ class MovieDashboardComponent extends Component {
     return (
       <div className="movie-dashboard">
         {data.length >= 1 &&
-          data.map((item, idx) => {
+          data.map(item => {
             return (
               <MovieCardComponent
-                key={idx}
-                idx={idx}
+                key={Math.round(Math.random() * 20000)}
+                id={item.id}
                 format={item.format}
                 release={item.release}
                 stars={item.stars}
                 title={item.title}
+                deleteHandler={this.props.deleteHandler}
               />
             );
           })}

@@ -52,8 +52,11 @@ class App extends Component {
   addHandler() {
     this.props.addNew(DEFAULT_MOVIE());
   }
-  deleteHandler() {
-    this.props.movieDelete(this.state.deleteInput);
+  deleteHandler(item) {
+    console.log('lets delete', item);
+    if (item) {
+      this.props.movieDelete(item);
+    }
   }
   updateHandler() {
     this.props.updateExisting(0, DEFAULT_MOVIE());
@@ -62,11 +65,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>*/}
-        <p>
-          Edit <code>src/App.js</code> and save to reload. 8mm📽
-        </p>
         <p>
           <b>API methods:</b>
 
@@ -79,12 +77,8 @@ class App extends Component {
             onChange={this.byIdHandler}
           />
           <button onClick={this.addHandler}>addNew</button>
-          <button onClick={this.deleteHandler}>movieDelete</button>
-          <input
-            type="text"
-            value={this.state.deleteInput}
-            onChange={this.deleteInputHandler}
-          />
+          {/*<button onClick={this.deleteHandler}>movieDelete</button>*/}
+          {/*<input type="text" value={this.state.deleteInput} onChange={this.deleteInputHandler} />*/}
           <button onClick={this.updateHandler}>updateExisting</button>
           <input
             type="text"
@@ -94,17 +88,14 @@ class App extends Component {
         </p>
 
         <span>List:</span>
-        {/*FIXME: ID should be set properly, temporary hack*/}
-        {console.log('on render >>>>', this.props.movies.movie)}
+
+        {console.log('on render >>>>', this.props.movies)}
         {this.props.movies.movie && (
-          <MovieDashboardComponent movieData={this.props.movies.movie} />
+          <MovieDashboardComponent
+            movieData={this.props.movies.movie}
+            deleteHandler={this.deleteHandler}
+          />
         )}
-        {/* <div>{this.props.movies.movie && this.props.movies.movie.map(item =>{
-          console.log('MAP', item)
-          if(item ===null) {return}
-         return <p key={Math.round(Math.random()*20000)}>{item.title} - {item.release} -  {item.format} - {item.stars}</p>
-          }
-        )}</div> */}
       </div>
     );
   }

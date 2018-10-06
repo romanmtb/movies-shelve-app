@@ -53,9 +53,14 @@ export const movieAddNew = body => dispatch => {
         result.data.status
       );
 
-      dispatch({ type: actionTypes.MOVIE_ADD_NEW_SUCCESS, movie: result.data });
+      dispatch({
+        type: actionTypes.MOVIE_ADD_NEW_SUCCESS,
+        payload: result.data,
+      });
     })
-    .catch(error => dispatch({ type: actionTypes.MOVIE_ADD_NEW_ERROR, error }));
+    .catch(error =>
+      dispatch({ type: actionTypes.MOVIE_ADD_NEW_ERROR, payload: error })
+    );
 };
 export const movieDelete = id => dispatch => {
   dispatch({ type: actionTypes.MOVIE_DELETE_PENDING, id });
@@ -63,13 +68,14 @@ export const movieDelete = id => dispatch => {
   utilRequest
     .movieDeleteRequest(id)
     .then(result => {
-      console.log('___', result.data);
-      dispatch({ type: actionTypes.MOVIE_DELETE_SUCCESS, movie: result.data });
+      dispatch({ type: actionTypes.MOVIE_DELETE_SUCCESS, payload: id });
     })
-    .catch(error =>
+    .catch(error => {
       // dispatch({ type: actionTypes.MOVIE_DELETE_ERROR, error})
-      dispatch({ type: actionTypes.MOVIE_DELETE_ERROR, movie: {} })
-    );
+      console.log('action delete movie error called', error);
+
+      dispatch({ type: actionTypes.MOVIE_DELETE_ERROR, payload: error });
+    });
 };
 
 export const movieUpdateExisting = (id, movie) => dispatch => {
