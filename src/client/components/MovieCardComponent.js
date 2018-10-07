@@ -15,15 +15,19 @@ class MovieCardComponent extends Component {
   };
 
   render() {
-    const filmStars = this.state.isOpen && (
-      <p className="card-text">{this.props.stars}</p>
-    );
-
-    const filmInfo = !this.state.isOpen && (
-      <div>
+    const filmInfo = this.state.isOpen && (
+      <div className="text-center">
         <h6>ID {this.props.id}</h6>
         <h6 className="card-text">{this.props.release}</h6>
         <h6 className="card-text">{this.props.format}</h6>
+        <p className="card-text">{this.props.stars}</p>
+      </div>
+    );
+
+    const filmTitle = !this.state.isOpen && (
+      <div>
+        <h5 className="card-title text-center">{this.props.title}</h5>
+        <img src={this.props.img} className="card-img-bottom" alt="" />
       </div>
     );
 
@@ -31,7 +35,7 @@ class MovieCardComponent extends Component {
       <div className="col-sm-6 col-lg-4">
         <div
           className="movie-dashboard__card card"
-          style={{ marginBottom: '30px', height: '315px', width: '315px' }}
+          style={{ marginBottom: '30px', height: '560px', width: '315px' }}
         >
           <div className="card-body">
             <div
@@ -51,14 +55,12 @@ class MovieCardComponent extends Component {
                   onClick={this.handleClick}
                   style={{ width: '85px' }}
                 >
-                  {this.state.isOpen ? 'INFO' : 'STARS'}
+                  {this.state.isOpen ? 'TITLE' : 'INFO'}
                 </button>
               </div>
             </div>
-
-            <h5 className="card-title">{this.props.title}</h5>
+            {filmTitle}
             {filmInfo}
-            {filmStars}
           </div>
         </div>
       </div>

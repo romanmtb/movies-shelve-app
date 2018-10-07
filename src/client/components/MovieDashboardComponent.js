@@ -25,6 +25,7 @@ class MovieDashboardComponent extends Component {
                   release={item.release}
                   stars={item.stars}
                   title={item.title}
+                  img={item.img}
                   deleteHandler={this.props.deleteHandler}
                 />
               );
