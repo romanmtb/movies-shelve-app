@@ -10,10 +10,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const router = express.Router();
-const admin = require('firebase-admin');
+const url = require('url');
 const firebase = require('firebase');
 const PORT = 4125;
-const MAX_ITEMS = 20;
 
 let config = {
   apiKey: 'AIzaSyDmNmhYd8smrolZuwd5W1WsQtsJBh3ddfM',
@@ -51,7 +50,18 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res) {
   res.json({ message: 'hooray! welcome to our api!' });
 });
-
+router.route('/movies/upload').post(function(req, res) {
+  for (let i in req.body.movie) {
+    let current = req.body.movie[i];
+    LAST_ID++;
+    let movie = { ...current, id: LAST_ID };
+    firebase
+      .database()
+      .ref('movie/' + LAST_ID)
+      .set(movie);
+  }
+  res.json({ message: 'ok' });
+});
 //ADD
 router
   .route('/movies')
@@ -84,6 +94,47 @@ router
       })
       .catch(); //FIXME #2 add error handling for requests
   });
+
+//SEARCH
+router.route('/movies/search').get(function(req, res) {
+  let finalArray = [];
+  let a = url.parse(req.url, true);
+  database
+    .ref()
+    .once('value')
+    .then(function(snapshot) {
+      let currentDb = snapshot.val().movie;
+      let temp = Object.keys(a.query);
+      let flag = false;
+      if (temp[0] === 'actor') {
+        for (let idx in currentDb) {
+          let currentItem = currentDb[idx];
+          let some = a.query.actor.toLowerCase();
+          let stars = currentItem.stars;
+          for (let i in stars) {
+            let currentStar = stars[i].toLowerCase();
+            if (currentStar.indexOf(some) !== -1) {
+              flag = true;
+            }
+          }
+          if (flag === true) {
+            finalArray.push(currentItem);
+            flag = false;
+          }
+        }
+      } else if (temp[0] === 'title') {
+        for (let idx in currentDb) {
+          let currentItem = currentDb[idx];
+          let some = a.query.title.toLowerCase();
+          let title = currentItem.title.toLowerCase();
+          if (title.indexOf(some) !== -1) {
+            finalArray.push(currentItem);
+          }
+        }
+      }
+      res.json({ message: finalArray });
+    });
+});
 
 //GET BY ID
 router

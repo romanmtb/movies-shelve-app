@@ -6,112 +6,151 @@ import DEFAULT_MOVIE from '../constants/defaultMovie';
 import MovieDashboardComponent from './MovieDashboardComponent';
 import HeaderComponent from './HeaderComponent';
 import 'bootstrap/dist/css/bootstrap.css';
-import SearchActorComponent from './SearchActorComponent';
-import SearchByTitleComponent from './SearchByTitleComponent';
 
 class App extends Component {
   constructor(params) {
     super(params);
     this.state = {
-      deleteInput: -1,
-      updateInput: -1,
+      byNameInput: '',
+      byActorInput: '',
       byIdInput: -1,
     };
 
     this.initHandler = this.initHandler.bind(this);
     this.getAllHandler = this.getAllHandler.bind(this);
-    this.getByIdHandler = this.getByIdHandler.bind(this);
     this.addHandler = this.addHandler.bind(this);
     this.deleteHandler = this.deleteHandler.bind(this);
-    this.updateHandler = this.updateHandler.bind(this);
     this.deleteInputHandler = this.deleteInputHandler.bind(this);
-    this.updateInputHandler = this.updateInputHandler.bind(this);
-    this.byIdHandler = this.byIdHandler.bind(this);
+    this.byNameInputHandler = this.byNameInputHandler.bind(this);
+    this.byActorInputHandler = this.byActorInputHandler.bind(this);
+    this.byNameHandler = this.byNameHandler.bind(this);
+    this.byActorHandler = this.byActorHandler.bind(this);
+    this.sortDownHandler = this.sortDownHandler.bind(this);
+    this.sortUpHandler = this.sortUpHandler.bind(this);
   }
 
   componentDidMount() {
     this.props.getAll();
   }
 
+  //FIX ME: This method needs some changes
+  sortUpHandler() {
+    this.props.sortUp();
+    this.props.sortUp();
+    this.props.sortUp();
+  }
+
+  sortDownHandler() {
+    this.props.sortDown();
+  }
+
   deleteInputHandler(event) {
     this.setState({ deleteInput: event.target.value });
   }
-  updateInputHandler(event) {
-    this.setState({ updateInput: event.target.value });
+
+  byNameInputHandler(event) {
+    this.setState({ byNameInput: event.target.value });
   }
-  byIdHandler(event) {
-    this.setState({ byIdInput: event.target.value });
+
+  byActorInputHandler(event) {
+    this.setState({ byActorInput: event.target.value });
   }
 
   initHandler() {
     this.props.init();
   }
+
   getAllHandler() {
     this.props.getAll();
   }
-  getByIdHandler() {
-    this.props.getAllById(0);
-  }
+
   addHandler() {
     this.props.addNew(DEFAULT_MOVIE());
   }
+
   deleteHandler(item) {
-    console.log('lets delete', item);
     if (item) {
       this.props.movieDelete(item);
     }
   }
-  updateHandler() {
-    this.props.updateExisting(0, DEFAULT_MOVIE());
+
+  byNameHandler() {
+    this.props.searchByName(this.state.byNameInput);
+  }
+
+  byActorHandler() {
+    this.props.searchByActor(this.state.byActorInput);
   }
 
   render() {
     return (
       <div className="container">
-        {/* <p>
-          <b>API methods:</b>
-
-          <button onClick={this.initHandler}>init</button>
-          <button onClick={this.getAllHandler}>getAll</button>
-          <button onClick={this.getByIdHandler}>getAllById</button>
-          <input
-            type="text"
-            value={this.state.byIdInput}
-            onChange={this.byIdHandler}
-          />
-          <button onClick={this.addHandler}>addNew</button>
-
-          <button onClick={this.deleteHandler}>movieDelete</button>
-          <input type="text" value={this.state.deleteInput} onChange={this.deleteInputHandler} />
-          
-          <button onClick={this.updateHandler}>updateExisting</button>
-          <input
-            type="text"
-            value={this.state.updateInput}
-            onChange={this.updateInputHandler}
-          />
-        </p> */}
-
         {console.log('on render >>>>', this.props.movies)}
+
+        {/*HEADER*/}
         <div className="row justify-content-center">
           <HeaderComponent />
         </div>
+
+        {/*INPUTS AND BUTTONS*/}
         <div className="row justify-content-center">
-          <SearchActorComponent />
-          <SearchByTitleComponent />
+          {/*SEARCH BY ACTOR*/}
+          <div
+            className="input-group input-group-lg col-lg-4"
+            style={{ marginBottom: '30px' }}
+          >
+            <input
+              type={'text'}
+              value={this.state.byActorInput}
+              onChange={this.byActorInputHandler}
+              className="form-control"
+              placeholder="ACTOR..."
+            />
+            <button onClick={this.byActorHandler} className="btn btn-dark">
+              SEARCH
+            </button>
+          </div>
+
+          {/*SEARCH BY TITLE*/}
+          <div
+            className="input-group input-group-lg col-lg-4"
+            style={{ marginBottom: '30px' }}
+          >
+            <input
+              type="text"
+              value={this.state.byNameInput}
+              onChange={this.byNameInputHandler}
+              className="form-control"
+              placeholder="TITLE..."
+            />
+            <button onClick={this.byNameHandler} className="btn btn-dark">
+              SEARCH
+            </button>
+          </div>
+
+          {/*BUTTONS GROUP*/}
           <div
             className="btn-group col-lg-4 justify-content-center"
             style={{ marginBottom: '30px' }}
           >
-            <button className="btn btn-dark">SORT A-Z</button>
-            <button className="btn btn-dark">IMPORT TXT</button>
-            <button className="btn btn-dark">ADD FILM</button>
+            <button onClick={this.getAllHandler} className="btn btn-dark">
+              GET ALL
+            </button>
+            <button onClick={this.sortUpHandler} className="btn btn-dark">
+              SORT
+            </button>
+            <button className="btn btn-dark">IMPORT</button>
+            <button onClick={this.addHandler} className="btn btn-dark">
+              ADD
+            </button>
           </div>
         </div>
+
+        {/*FILM CARDS*/}
         <div className="row justify-content-center">
-          {this.props.movies.movie && (
+          {this.props.movies && (
             <MovieDashboardComponent
-              movieData={this.props.movies.movie}
+              movieData={this.props.movies}
               deleteHandler={this.deleteHandler}
             />
           )}
@@ -122,23 +161,22 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  //state.XX, where XX depends on reducer name
-  // console.log("mapStateToProps", state)
   return { movies: state.getAll };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addTodo: item => dispatch(actions.addTodo(item)),
-
     init: () => dispatch(actions.init()),
+
     getAll: () => dispatch(actions.movieGetAll()),
-    getAllById: id => dispatch(actions.movieGetById(id)),
     addNew: body => dispatch(actions.movieAddNew(body)),
     movieDelete: id => dispatch(actions.movieDelete(id)),
 
-    updateExisting: (id, body) =>
-      dispatch(actions.movieUpdateExisting(id, body)),
+    searchByName: name => dispatch(actions.searchByName(name)),
+    searchByActor: name => dispatch(actions.searchByActor(name)),
+
+    sortDown: () => dispatch(actions.sortDown()),
+    sortUp: () => dispatch(actions.sortUp()),
   };
 };
 export default connect(

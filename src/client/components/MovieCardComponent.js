@@ -34,7 +34,10 @@ class MovieCardComponent extends Component {
           style={{ marginBottom: '60px', height: '315px', width: '315px' }}
         >
           <div className="card-body">
-            <div className="container text-center" style={{marginBottom: '20px'}}>
+            <div
+              className="container text-center"
+              style={{ marginBottom: '20px' }}
+            >
               <div className="btn-group">
                 <button
                   className="btn btn-outline-dark"
@@ -46,7 +49,7 @@ class MovieCardComponent extends Component {
                 <button
                   className="btn btn-outline-dark"
                   onClick={this.handleClick}
-                  style={{width: '85px'}}
+                  style={{ width: '85px' }}
                 >
                   {this.state.isOpen ? 'INFO' : 'STARS'}
                 </button>

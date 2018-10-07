@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "start": "npm run build && node src/server/index.js",
+    "react-test": "react-scripts test",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon src/server/index.js",
     "dev": "concurrently 'npm run server' 'npm run client'",
@@ -40,7 +41,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "serve-favicon": "^2.5.0",
-    "winston": "^3.1.0"
+    "winston": "^3.1.0",
+    "immutability-helper": "^2.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

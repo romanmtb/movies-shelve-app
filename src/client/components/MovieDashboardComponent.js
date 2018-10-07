@@ -14,17 +14,21 @@ class MovieDashboardComponent extends Component {
       <div className="movie-dashboard card-deck">
         {data.length >= 1 &&
           data.map(item => {
-            return (
-              <MovieCardComponent
-                key={Math.round(Math.random() * 20000)}
-                id={item.id}
-                format={item.format}
-                release={item.release}
-                stars={item.stars}
-                title={item.title}
-                deleteHandler={this.props.deleteHandler}
-              />
-            );
+            if (item === null) {
+              return <h2>DATABASE ERROR</h2>;
+            } else {
+              return (
+                <MovieCardComponent
+                  key={Math.round(Math.random() * 20000)}
+                  id={item.id}
+                  format={item.format}
+                  release={item.release}
+                  stars={item.stars}
+                  title={item.title}
+                  deleteHandler={this.props.deleteHandler}
+                />
+              );
+            }
           })}
       </div>
     );
