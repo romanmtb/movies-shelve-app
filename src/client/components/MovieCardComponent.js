@@ -31,7 +31,7 @@ class MovieCardComponent extends Component {
       <div className="col-sm-6 col-lg-4">
         <div
           className="movie-dashboard__card card"
-          style={{ marginBottom: '60px', height: '315px', width: '315px' }}
+          style={{ marginBottom: '30px', height: '315px', width: '315px' }}
         >
           <div className="card-body">
             <div
