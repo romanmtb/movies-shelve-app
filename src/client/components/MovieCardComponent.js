@@ -19,33 +19,42 @@ class MovieCardComponent extends Component {
       <p className="card-text">{this.props.stars}</p>
     );
 
+    const filmInfo = !this.state.isOpen && (
+      <div>
+        <h6>ID {this.props.id}</h6>
+        <h6 className="card-text">{this.props.release}</h6>
+        <h6 className="card-text">{this.props.format}</h6>
+      </div>
+    );
+
     return (
-      <div className="col-lg-4">
+      <div className="col-sm-6 col-lg-4">
         <div
           className="movie-dashboard__card card"
-          style={{ marginBottom: '60px' }}
+          style={{ marginBottom: '60px', height: '315px', width: '315px' }}
         >
           <div className="card-body">
-            <button
-              className="btn btn-outline-dark"
-              style={{ margin: '10px' }}
-              onClick={() => this.props.deleteHandler(this.props.id)}
-            >
-              DELETE
-            </button>
+            <div className="container text-center" style={{marginBottom: '20px'}}>
+              <div className="btn-group">
+                <button
+                  className="btn btn-outline-dark"
+                  onClick={() => this.props.deleteHandler(this.props.id)}
+                >
+                  DELETE
+                </button>
 
-            <button
-              className="btn btn-outline-dark"
-              style={{ margin: '10px' }}
-              onClick={this.handleClick}
-            >
-              {this.state.isOpen ? 'CLOSE' : 'OPEN'}
-            </button>
+                <button
+                  className="btn btn-outline-dark"
+                  onClick={this.handleClick}
+                  style={{width: '85px'}}
+                >
+                  {this.state.isOpen ? 'INFO' : 'STARS'}
+                </button>
+              </div>
+            </div>
 
             <h5 className="card-title">{this.props.title}</h5>
-            <h6>ID {this.props.id}</h6>
-            <h6 className="card-text">{this.props.release}</h6>
-            <h6 className="card-text">{this.props.format}</h6>
+            {filmInfo}
             {filmStars}
           </div>
         </div>

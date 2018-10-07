@@ -11,7 +11,7 @@ class SearchActorComponent extends Component {
     return (
       <div
         className="input-group input-group-lg col-lg-4"
-        style={{ marginBottom: '30px' }}
+        style={{ marginBottom: '30px'}}
       >
         <input className="form-control" placeholder="ACTOR..." />
       </div>
