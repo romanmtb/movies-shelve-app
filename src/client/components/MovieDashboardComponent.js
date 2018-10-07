@@ -15,7 +15,7 @@ class MovieDashboardComponent extends Component {
         {data.length >= 1 &&
           data.map(item => {
             if (item === null) {
-              return <h2>DATABASE ERROR</h2>;
+              {console.log('---', item, 'Deleted')}
             } else {
               return (
                 <MovieCardComponent
