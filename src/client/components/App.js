@@ -56,6 +56,31 @@ class App extends Component {
     this.setState({ byActorInput: event.target.value });
   }
 
+  handleFiles = files => {
+    const reader = new FileReader();
+    reader.onload = function(theFile) {
+      let data = theFile.srcElement.result.split('\n');
+      let index = 0;
+      let arrayOfFilms = [[]];
+      data.forEach(item => {
+        if (item !== '') {
+          arrayOfFilms[index].push(item);
+        } else {
+          index++;
+          arrayOfFilms.push([]);
+        }
+      });
+      arrayOfFilms.forEach(item => {
+        item[0] = item[0].substring(7);
+        item[1] = item[1].substring(14);
+        item[2] = item[2].substring(8);
+        item[3] = item[3].substring(7);
+      });
+      console.log(arrayOfFilms);
+    };
+    reader.readAsText(files[0]);
+  };
+
   initHandler() {
     this.props.init();
   }
@@ -85,30 +110,6 @@ class App extends Component {
   uploadHandler(item) {
     this.props.uploadHandler(item);
   }
-
-  handleFiles = files => {
-    const reader = new FileReader();
-    reader.onload = function(theFile) {
-      let data = theFile.srcElement.result;
-      let temp = data.split('\n');
-      // console.log(temp);
-      let index = 0;
-      let arrayOfFilms = [[]];
-      temp.forEach(item => {
-        if (item !== '') {
-          arrayOfFilms[index].push(item);
-        } else {
-          index++;
-          arrayOfFilms.push([]);
-        }
-      });
-
-      let newArray = arrayOfFilms[0].join();
-
-      console.log('---', newArray);
-    };
-    reader.readAsText(files[0]);
-  };
 
   render() {
     return (
