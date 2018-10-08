@@ -16,7 +16,7 @@ export const searchByName = name => dispatch => {
       })
     )
     .catch(error =>
-      dispatch({ type: actionTypes.SEARCH_BY_NAME_ERROR, error })
+      dispatch({ type: actionTypes.SEARCH_BY_NAME_ERROR, payload: error })
     );
 };
 
@@ -31,7 +31,7 @@ export const searchByActor = actor => dispatch => {
       })
     )
     .catch(error =>
-      dispatch({ type: actionTypes.SEARCH_BY_ACTOR_ERROR, error })
+      dispatch({ type: actionTypes.SEARCH_BY_ACTOR_ERROR, payload: error })
     );
 };
 
@@ -56,7 +56,7 @@ export const movieGetAll = () => dispatch => {
 };
 
 export const movieAddNew = body => dispatch => {
-  dispatch({ type: actionTypes.MOVIE_ADD_NEW_PENDING, body });
+  dispatch({ type: actionTypes.MOVIE_ADD_NEW_PENDING });
   utilRequest
     .addNewRequest(body)
     .then(result =>
@@ -71,7 +71,7 @@ export const movieAddNew = body => dispatch => {
 };
 
 export const movieDelete = id => dispatch => {
-  dispatch({ type: actionTypes.MOVIE_DELETE_PENDING, id });
+  dispatch({ type: actionTypes.MOVIE_DELETE_PENDING });
   utilRequest
     .movieDeleteRequest(id)
     .then(
@@ -83,5 +83,20 @@ export const movieDelete = id => dispatch => {
     )
     .catch(error =>
       dispatch({ type: actionTypes.MOVIE_DELETE_ERROR, payload: error })
+    );
+};
+
+export const upload = item => dispatch => {
+  dispatch({ type: actionTypes.UPLOAD_PENDING });
+  utilRequest
+    .uploadFile(item)
+    .then(() =>
+      dispatch({
+        type: actionTypes.UPLOAD_SUCCESS,
+        //TODO: maybe add payload
+      })
+    )
+    .catch(error =>
+      dispatch({ type: actionTypes.UPLOAD_ERROR, payload: error })
     );
 };

@@ -1,10 +1,10 @@
 import * as constants from '../constants/index';
 // import update from "immutability-helper";
 
-let movies = (state = [], action) => {
+let movies = (state = [{ foo: 'bar' }], action) => {
   let { type, payload } = action;
   let { movie } = action;
-  let result = [];
+  let result;
 
   switch (type) {
     case constants.MOVIE_DELETE_SUCCESS:
@@ -19,11 +19,11 @@ let movies = (state = [], action) => {
       return [...result];
 
     case constants.SORT_TITLE_DOWN:
-      result = state.sort((first, second) => first.title < second.title);
+      result = state.sort((first, second) => first.title < second.title); //FIXME non-strict
       return [...result];
 
     case constants.SORT_TITLE_UP:
-      result = state.sort((first, second) => first.title > second.title);
+      result = state.sort((first, second) => first.title > second.title); //FIXME non-strict
       return [...result];
 
     case constants.SEARCH_BY_ACTOR_SUCCESS:
@@ -33,13 +33,7 @@ let movies = (state = [], action) => {
 
     case constants.MOVIE_GET_ALL_SUCCESS:
       let result = Object.values(movie);
-      return [...state, ...result];
-
-    case constants.MOVIE_GET_ALL_ERROR:
-      return [...state, action.error];
-
-    case constants.MOVIE_ADD_NEW_ERROR:
-      return [...state, action.error];
+      return [...result];
 
     default:
       return [...state];

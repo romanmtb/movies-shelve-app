@@ -9,13 +9,14 @@ class MovieDashboardComponent extends Component {
 
   render() {
     const data = this.props.movieData;
-    console.log(data);
     return (
       <div className="movie-dashboard card-deck">
         {data.length >= 1 &&
           data.map(item => {
             if (item === null) {
-              {console.log('---', item, 'Deleted')}
+              {
+                console.log('---', item, 'Deleted');
+              }
             } else {
               return (
                 <MovieCardComponent

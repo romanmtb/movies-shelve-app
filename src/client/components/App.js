@@ -3,9 +3,10 @@ import * as actions from '../actions';
 import './../App.css';
 import { connect } from 'react-redux';
 import DEFAULT_MOVIE from '../constants/defaultMovie';
-import MovieDashboardComponent from './MovieDashboardComponent';
-import HeaderComponent from './HeaderComponent';
 import 'bootstrap/dist/css/bootstrap.css';
+import HeaderComponent from './HeaderComponent';
+import MovieDashboardComponent from './MovieDashboardComponent';
+import ReactFileReader from 'react-file-reader';
 
 class App extends Component {
   constructor(params) {
@@ -27,13 +28,13 @@ class App extends Component {
     this.byActorHandler = this.byActorHandler.bind(this);
     this.sortDownHandler = this.sortDownHandler.bind(this);
     this.sortUpHandler = this.sortUpHandler.bind(this);
+    this.uploadHandler = this.uploadHandler.bind(this);
   }
 
   componentDidMount() {
     this.props.getAll();
   }
 
-  //FIX ME: This method needs some changes
   sortUpHandler() {
     this.props.sortUp();
     this.props.sortUp();
@@ -81,6 +82,22 @@ class App extends Component {
   byActorHandler() {
     this.props.searchByActor(this.state.byActorInput);
   }
+
+  uploadHandler(item) {
+    this.props.uploadHandler(item);
+  }
+
+  handleFiles = files => {
+    // FileReader.readAsText
+    console.log(files[0]);
+    const reader = new FileReader();
+    reader.onload = function(theFile) {
+      let data = theFile.srcElement.result;
+      let temp = data.split('\n');
+      console.log(temp);
+    };
+    reader.readAsText(files[0]);
+  };
 
   render() {
     return (
@@ -146,6 +163,19 @@ class App extends Component {
           </div>
         </div>
 
+        <ReactFileReader
+          fileTypes={['.txt', '.json']}
+          handleFiles={this.handleFiles}
+          multipleFiles={false}
+        >
+          <button onClick={this.uploadHandler} className="btn">
+            Upload
+          </button>
+        </ReactFileReader>
+
+        {/*<span>Errors:</span>*/}
+        {/*<div> {this.props.errors && this.props.errors.map(err => <p key={Math.round(Math.random()*20000)}>{err.message}</p>)}</div>*/}
+
         {/*FILM CARDS*/}
         <div className="row justify-content-center">
           {this.props.movies && (
@@ -161,7 +191,10 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { movies: state.getAll };
+  return {
+    movies: state.getAll,
+    errors: state.errors,
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -177,6 +210,8 @@ const mapDispatchToProps = dispatch => {
 
     sortDown: () => dispatch(actions.sortDown()),
     sortUp: () => dispatch(actions.sortUp()),
+
+    uploadHandler: () => dispatch(actions.upload()),
   };
 };
 export default connect(
