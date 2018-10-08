@@ -4,7 +4,6 @@ import './../App.css';
 import { connect } from 'react-redux';
 import DEFAULT_MOVIE from '../constants/defaultMovie';
 import 'bootstrap/dist/css/bootstrap.css';
-import HeaderComponent from './HeaderComponent';
 import MovieDashboardComponent from './MovieDashboardComponent';
 import ReactFileReader from 'react-file-reader';
 
@@ -88,13 +87,25 @@ class App extends Component {
   }
 
   handleFiles = files => {
-    // FileReader.readAsText
-    console.log(files[0]);
     const reader = new FileReader();
     reader.onload = function(theFile) {
       let data = theFile.srcElement.result;
       let temp = data.split('\n');
-      console.log(temp);
+      // console.log(temp);
+      let index = 0;
+      let arrayOfFilms = [[]];
+      temp.forEach(item => {
+        if (item !== '') {
+          arrayOfFilms[index].push(item);
+        } else {
+          index++;
+          arrayOfFilms.push([]);
+        }
+      });
+
+      let newArray = arrayOfFilms[0].join();
+
+      console.log('---', newArray);
     };
     reader.readAsText(files[0]);
   };
@@ -106,7 +117,20 @@ class App extends Component {
 
         {/*HEADER*/}
         <div className="row justify-content-center">
-          <HeaderComponent />
+          <div className="jumbotron bg-secondary text-white col-lg-12">
+            <h1 className="display-4">
+              MOVIE SHELTER <small className="lead">Test task</small>
+            </h1>
+            <ReactFileReader
+              fileTypes={['.txt', '.json']}
+              handleFiles={this.handleFiles}
+              multipleFiles={false}
+            >
+              <button onClick={this.uploadHandler} className="btn btn-dark">
+                Upload
+              </button>
+            </ReactFileReader>
+          </div>
         </div>
 
         {/*INPUTS AND BUTTONS*/}
@@ -154,24 +178,13 @@ class App extends Component {
               GET ALL
             </button>
             <button onClick={this.sortUpHandler} className="btn btn-dark">
-              SORT
+              SORT A-Z
             </button>
-            <button className="btn btn-dark">IMPORT</button>
             <button onClick={this.addHandler} className="btn btn-dark">
-              ADD
+              ADD NEW
             </button>
           </div>
         </div>
-
-        <ReactFileReader
-          fileTypes={['.txt', '.json']}
-          handleFiles={this.handleFiles}
-          multipleFiles={false}
-        >
-          <button onClick={this.uploadHandler} className="btn">
-            Upload
-          </button>
-        </ReactFileReader>
 
         {/*<span>Errors:</span>*/}
         {/*<div> {this.props.errors && this.props.errors.map(err => <p key={Math.round(Math.random()*20000)}>{err.message}</p>)}</div>*/}
