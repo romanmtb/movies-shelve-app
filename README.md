@@ -4,6 +4,7 @@ This project is my test assignment.
 Technical documentation provided in [Link](https://github.com/romanmtb/movies-shelve-app/wiki)
 
 This is txt file to test import [Link](https://github.com/romanmtb/movies-shelve-app/blob/master/db/sample_movies.txt)
+
 This is example of data from database [Link](https://github.com/romanmtb/movies-shelve-app/blob/master/db/react-movies-shelve-export.json)
 
 ### Quick Start
