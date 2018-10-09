@@ -56,7 +56,7 @@ class App extends Component {
     this.setState({ byActorInput: event.target.value });
   }
 
-  handleFiles = files => {
+  handleFiles (files) {
     const reader = new FileReader();
     reader.onload = function(theFile) {
       let data = theFile.srcElement.result.split('\n');
@@ -74,9 +74,23 @@ class App extends Component {
         item[0] = item[0].substring(7);
         item[1] = item[1].substring(14);
         item[2] = item[2].substring(8);
-        item[3] = item[3].substring(7);
+        item[3] = item[3].substring(7).split(', ');
+        item.push('https://semantic-ui.com/images/wireframe/image.png');
       });
-      console.log(arrayOfFilms);
+
+      let importedFilms = [];
+
+      arrayOfFilms.forEach(item => {
+        let obj = {};
+        obj.title = item[0];
+        obj.release = item[1];
+        obj.format = item[2];
+        obj.stars = item[3];
+        obj.img = item[4];
+        importedFilms.push(obj);
+      });
+
+      console.log(importedFilms);
     };
     reader.readAsText(files[0]);
   };
