@@ -37,8 +37,6 @@ class App extends Component {
 
   sortUpHandler() {
     this.props.sortUp();
-    this.props.sortUp();
-    this.props.sortUp();
   }
 
   sortDownHandler() {
@@ -65,7 +63,6 @@ class App extends Component {
       let arrayOfFilms = [[]];
 
       data.forEach(item => {
-        console.log('item', item);
         if (item !== '') {
           if (arrayOfFilms[index] === undefined) {
             arrayOfFilms[index] = [];
@@ -82,8 +79,7 @@ class App extends Component {
         item[1] = item[1].substring(14);
         item[2] = item[2].substring(8);
         item[3] = item[3].substring(7).split(', ');
-        // item.push('https://semantic-ui.com/images/wireframe/image.png');
-        console.log(item);
+        item.push('https://semantic-ui.com/images/wireframe/image.png');
       });
 
       let importedFilms = [];
@@ -99,7 +95,6 @@ class App extends Component {
       });
 
       const A = { movie: importedFilms };
-      console.log('final', A);
       this.props.uploadHandler(A);
     }.bind(this);
     reader.readAsText(files[0]);
@@ -138,8 +133,6 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        {console.log('on render >>>>', this.props.movies)}
-
         {/*HEADER*/}
         <div className="row justify-content-center">
           <div className="jumbotron bg-secondary text-white col-lg-12">
@@ -187,7 +180,9 @@ class App extends Component {
               className="form-control"
               placeholder="TITLE..."
             />
-            <button className="btn btn-dark">SEARCH</button>
+            <button onClick={this.byNameHandler} className="btn btn-dark">
+              SEARCH
+            </button>
           </div>
 
           {/*BUTTONS GROUP*/}

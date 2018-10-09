@@ -33,6 +33,7 @@ let movies = (state = [{ foo: 'bar' }], action) => {
 
     case constants.MOVIE_GET_ALL_SUCCESS:
       let result = Object.values(movie);
+      result = result.filter(i => i !== null);
       return [...result];
 
     default:
