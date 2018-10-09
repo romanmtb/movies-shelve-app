@@ -202,9 +202,6 @@ class App extends Component {
           </div>
         </div>
 
-        {/*<span>Errors:</span>*/}
-        {/*<div> {this.props.errors && this.props.errors.map(err => <p key={Math.round(Math.random()*20000)}>{err.message}</p>)}</div>*/}
-
         {/*FILM CARDS*/}
         <div className="row justify-content-center">
           {this.props.movies && (

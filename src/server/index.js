@@ -4,8 +4,6 @@
 /** @namespace router.get */
 /** @namespace router.route */
 
-//inspired with: https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -47,8 +45,6 @@ router.use(function(req, res, next) {
     res
       .status(503)
       .json({ message: 'server not connected to DB, please wait for a while' });
-  // do logging
-  //console.log('Something is happening.');
   next();
 });
 
@@ -106,7 +102,7 @@ router
         }
         res.json(result);
       })
-      .catch(); //FIXME #2 add error handling for requests
+      .catch();
   });
 
 //SEARCH

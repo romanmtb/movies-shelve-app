@@ -4,7 +4,6 @@ import MovieCardComponent from './MovieCardComponent';
 class MovieDashboardComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   render() {
