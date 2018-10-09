@@ -91,13 +91,12 @@ export const upload = item => dispatch => {
   utilRequest
     .uploadFile(item)
     .then(() => {
-        dispatch(movieGetAll());
-        dispatch({
-          type: actionTypes.UPLOAD_SUCCESS,
-          //TODO: maybe add payload
-        })
-      }
-    )
+      dispatch(movieGetAll());
+      dispatch({
+        type: actionTypes.UPLOAD_SUCCESS,
+        //TODO: maybe add payload
+      });
+    })
     .catch(error =>
       dispatch({ type: actionTypes.UPLOAD_ERROR, payload: error })
     );

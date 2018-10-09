@@ -17,6 +17,7 @@ class App extends Component {
     };
 
     this.initHandler = this.initHandler.bind(this);
+    this.handleFiles = this.handleFiles.bind(this);
     this.getAllHandler = this.getAllHandler.bind(this);
     this.addHandler = this.addHandler.bind(this);
     this.deleteHandler = this.deleteHandler.bind(this);
@@ -56,7 +57,7 @@ class App extends Component {
     this.setState({ byActorInput: event.target.value });
   }
 
-  handleFiles (files) {
+  handleFiles(files) {
     const reader = new FileReader();
     reader.onload = function(theFile) {
       let data = theFile.srcElement.result.split('\n');
@@ -91,10 +92,9 @@ class App extends Component {
       });
 
       this.props.uploadHandler(importedFilms);
-      console.log(importedFilms);
-    };
+    }.bind(this);
     reader.readAsText(files[0]);
-  };
+  }
 
   initHandler() {
     this.props.init();
@@ -142,7 +142,6 @@ class App extends Component {
               handleFiles={this.handleFiles}
               multipleFiles={false}
             >
-
               <button className="btn btn-dark">IMPORT</button>
             </ReactFileReader>
           </div>
@@ -175,13 +174,11 @@ class App extends Component {
             <input
               type="text"
               value={this.state.byNameInput}
-              onChange={this.byNameInputHandler}
+              onChange={o => this.byNameInputHandler(o)}
               className="form-control"
               placeholder="TITLE..."
             />
-            <button onClick={this.byNameHandler} className="btn btn-dark">
-              SEARCH
-            </button>
+            <button className="btn btn-dark">SEARCH</button>
           </div>
 
           {/*BUTTONS GROUP*/}
