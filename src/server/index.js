@@ -96,7 +96,15 @@ router
       .ref()
       .once('value')
       .then(function(snapshot) {
-        res.json(snapshot.val().movie);
+        let arr = snapshot.val().movie;
+        let result = [];
+        for (let i = 0; i < arr.length; i++) {
+          let current = arr[i];
+          if (current !== undefined || current !== null) {
+            result.push(current);
+          }
+        }
+        res.json(result);
       })
       .catch(); //FIXME #2 add error handling for requests
   });

@@ -63,20 +63,27 @@ class App extends Component {
       let data = theFile.srcElement.result.split('\n');
       let index = 0;
       let arrayOfFilms = [[]];
+
       data.forEach(item => {
+        console.log('item', item);
         if (item !== '') {
+          if (arrayOfFilms[index] === undefined) {
+            arrayOfFilms[index] = [];
+          }
           arrayOfFilms[index].push(item);
         } else {
           index++;
-          arrayOfFilms.push([]);
         }
       });
+
       arrayOfFilms.forEach(item => {
+        if (item.length === 0) return;
         item[0] = item[0].substring(7);
         item[1] = item[1].substring(14);
         item[2] = item[2].substring(8);
         item[3] = item[3].substring(7).split(', ');
-        item.push('https://semantic-ui.com/images/wireframe/image.png');
+        // item.push('https://semantic-ui.com/images/wireframe/image.png');
+        console.log(item);
       });
 
       let importedFilms = [];
@@ -91,7 +98,9 @@ class App extends Component {
         importedFilms.push(obj);
       });
 
-      this.props.uploadHandler(importedFilms);
+      const A = { movie: importedFilms };
+      console.log('final', A);
+      this.props.uploadHandler(A);
     }.bind(this);
     reader.readAsText(files[0]);
   }
@@ -236,7 +245,7 @@ const mapDispatchToProps = dispatch => {
     sortDown: () => dispatch(actions.sortDown()),
     sortUp: () => dispatch(actions.sortUp()),
 
-    uploadHandler: () => dispatch(actions.upload()),
+    uploadHandler: files => dispatch(actions.upload(files)),
   };
 };
 export default connect(
