@@ -3,6 +3,8 @@
 This project is my test assignment.
 Technical documentation provided in [Link](https://github.com/romanmtb/movies-shelve-app/wiki)
 
+This is txt file to test import [Link](https://github.com/romanmtb/movies-shelve-app/blob/master/db/sample_movies.txt)
+
 ### Quick Start
 
 ```
