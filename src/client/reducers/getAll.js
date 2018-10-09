@@ -1,5 +1,4 @@
 import * as constants from '../constants/index';
-// import update from "immutability-helper";
 
 let movies = (state = [{ foo: 'bar' }], action) => {
   let { type, payload } = action;
@@ -19,11 +18,27 @@ let movies = (state = [{ foo: 'bar' }], action) => {
       return [...result];
 
     case constants.SORT_TITLE_DOWN:
-      result = state.sort((first, second) => first.title < second.title); //FIXME non-strict
+      result = state.sort(function(a, b) {
+        let nameA = a.title.toLowerCase(),
+          nameB = b.title.toLowerCase();
+        if (nameA < nameB)
+          //sort string ascending
+          return 1;
+        if (nameA > nameB) return -1;
+        return 0;
+      });
       return [...result];
 
     case constants.SORT_TITLE_UP:
-      result = state.sort((first, second) => first.title > second.title); //FIXME non-strict
+      result = state.sort(function(a, b) {
+        let nameA = a.title.toLowerCase(),
+          nameB = b.title.toLowerCase();
+        if (nameA < nameB)
+          //sort string ascending
+          return -1;
+        if (nameA > nameB) return 1;
+        return 0;
+      });
       return [...result];
 
     case constants.SEARCH_BY_ACTOR_SUCCESS:
