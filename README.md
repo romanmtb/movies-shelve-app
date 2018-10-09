@@ -1,6 +1,7 @@
 ## MOVIE SHELTER APP
 
 This project is my test assignment.
+Technical documentation provided in [Link](https://github.com/romanmtb/movies-shelve-app/wiki)
 
 ### Quick Start
 
