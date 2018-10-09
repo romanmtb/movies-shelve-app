@@ -14,7 +14,7 @@ class MovieDashboardComponent extends Component {
           data.map(item => {
             if (item === null) {
               {
-                console.log('---', item, 'Deleted');
+                console.error('---', item, 'Deleted');
               }
             } else {
               return (
