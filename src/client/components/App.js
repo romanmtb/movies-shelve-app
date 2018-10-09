@@ -90,6 +90,7 @@ class App extends Component {
         importedFilms.push(obj);
       });
 
+      this.props.uploadHandler(importedFilms);
       console.log(importedFilms);
     };
     reader.readAsText(files[0]);
@@ -141,9 +142,8 @@ class App extends Component {
               handleFiles={this.handleFiles}
               multipleFiles={false}
             >
-              <button onClick={this.uploadHandler} className="btn btn-dark">
-                Upload
-              </button>
+
+              <button className="btn btn-dark">IMPORT</button>
             </ReactFileReader>
           </div>
         </div>
